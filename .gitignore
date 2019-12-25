@@ -107,6 +107,4 @@ dist
 .vscode-test
 
 yarn.lock
-yarn.lock.json
-package.lock
-package.lock.json
+package-lock.json
