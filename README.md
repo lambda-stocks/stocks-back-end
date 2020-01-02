@@ -1,11 +1,11 @@
 # stocks-back-end
 
-# Routes
+## Routes
 
-## Restful Root
+### Restful Root
 - https://lambdastockbe.herokuapp.com/
 - GET 200 Message: Server is up and running
 - GET 500: Internal Error
 
-## Graphql Root
+### Graphql Root
 - https://lambdastockbe.herokuapp.com/graphql
