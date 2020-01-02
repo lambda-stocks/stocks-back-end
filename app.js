@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import rest from './rest'
 
 const server = express();
+require('dotenv').config()
 
 server.use(helmet());
 server.use(cors({
