@@ -6,6 +6,8 @@ exports.up = function (knex) {
     tbl.string('email', 128).notNullable();
     tbl.string('username', 128).unique().notNullable();
     tbl.text('password', 128).notNullable();
+    tbl.timestamp('created_at').defaultTo(knex.fn.now());
+    tbl.timestamp('updated_at').defaultTo(knex.fn.now());
   })
 };
 
