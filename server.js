@@ -1,6 +1,11 @@
-import server from './app';
+import app from './app';
+import "./database/dbConnector";
+require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`\n=== Server listening on port ${PORT} ===\n`);
+app.listen(PORT, err => {
+  if (err) {
+    return console.log(`\u274c  Error encountered ${err}\n`);
+  }
+  console.log(`\u2705  API is running on port ${PORT}\n`);
 });
