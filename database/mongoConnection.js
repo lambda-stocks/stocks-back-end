@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
-const DB_URL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/stocks';
-
+require("dotenv").config();
+const DB_URL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/test';
 // Connect to the database
 try {
   // connection url, with an object of options as a second parameter
   mongoose.connect(DB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    autoReconnect: true,
-    reconnectTries: 1000000,
-    reconnectInterval: 3000,
+    // autoReconnect: true,
+    // reconnectTries: 1000000,
+    // reconnectInterval: 3000,
     useCreateIndex: true,
     useFindAndModify: false,
   });
