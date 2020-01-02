@@ -1,18 +1,26 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan';
+import graphqlHTTP from 'express-graphql';
 
-import rest from './rest'
+import rest from './rest';
+import { schema } from './graphql/schema';
 
-const server = express();
-
-server.use(helmet());
-server.use(cors({
+const app = express();
+app.use(express.json());
+app.use(helmet());
+app.use(cors({
   origin: "*",
   credentials: true
 }));
-server.use(express.json());
+app.use(morgan('dev'));
 
-rest(server);
-
-export default server;
+rest(app);
+app.use('/graphql',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+);
+export default app;
