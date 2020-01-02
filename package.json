@@ -2,10 +2,10 @@
   "name": "stocks-back-end",
   "version": "1.0.0",
   "description": "back-end",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js"
+    "start": "node -r esm server.js",
+    "dev": "nodemon -r esm server.js"
   },
   "repository": {
     "type": "git",
@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/lambda-stocks/stocks-back-end#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "casual": "^1.6.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.5.8",
