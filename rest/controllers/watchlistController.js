@@ -3,21 +3,22 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const wishlist = async (req, res) => {
+const watchlists = async (req, res) => {
   try {
     const { user_id, stock_id } = req.body;
+    console.log(req.body)
     if (!user_id || !stock_id) {
       return res.status(400).json({ error: true, message: 'user_id, and stock_id is required!' });
     }
 
-    const newWishlist = await db('wishlists').insert(req.body);
+    const watchLists = await db('watchlists').insert(req.body);
 
-    if (newWishlist.length > 0) {
-      return res.status(201).json({ id: newWishlist[0] });
+    if (watchLists.length > 0) {
+      return res.status(201).json({ id: watchLists[0] });
     } else {
       return res
         .status(400)
-        .json({ error: true, message: 'Unable to create a wishlist' });
+        .json({ error: true, message: 'Unable to create a watchlist' });
     }
   } catch (err) {
     if (ENVIRONMENT === 'development') {
@@ -32,4 +33,4 @@ const wishlist = async (req, res) => {
   }
 };
 
-export default { wishlist };
+export default { watchlists };

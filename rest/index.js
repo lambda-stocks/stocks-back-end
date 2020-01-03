@@ -1,5 +1,5 @@
 import userController from './controllers/userController';
-import wishlistController from './controllers/wishlistController';
+import watchlistsController from './controllers/watchlistController';
 
 export default app => {
   app.route('/api').get((req, res) => {
@@ -8,5 +8,5 @@ export default app => {
 
   app.route('/api/login').post(userController.login);
   app.route('/api/register').post(userController.register);
-  app.route('/api/auth').post(wishlistController.wishlist);
+  app.route('/api/auth').post(watchlistsController.watchlists);
 };
