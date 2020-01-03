@@ -6,7 +6,6 @@ const ENVIRONMENT = process.env.ENVIRONMENT;
 const stocks = async (req, res) => {
   try {
     const { name, open, high, low, close } = req.body;
-    console.log(req.body)
     if (!name || !open || !high || !low || !close) {
       return res.status(400).json({ error: true, message: 'name, open, high, low, close is required!' });
     }
