@@ -42,4 +42,24 @@ const createNotifications = async (req, res) => {
   }
 };
 
-export default { createNotifications };
+const getNotifications = async (req, res) => {
+  try {
+    const notifications = await db('notifications');
+    return res.status(200).json(notifications);
+  } catch (err) {
+    if (ENVIRONMENT === 'development') {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log('Something went wrong!');
+      return res
+        .status(500)
+        .json({ error: true, message: 'Error getting notifications' });
+    }
+  }
+};
+
+// TODO
+const getUserNotification = async(req, res) => {};
+
+export default { createNotifications, getNotifications, getUserNotification };

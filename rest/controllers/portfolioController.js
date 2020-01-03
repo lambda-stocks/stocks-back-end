@@ -40,4 +40,24 @@ const createPortfolio = async (req, res) => {
   }
 };
 
-export default { createPortfolio };
+const getPortfolios = async (req, res) => {
+  try {
+    const portfolio = await db('portfolios');
+    return res.status(200).json(portfolio);
+  } catch (err) {
+    if (ENVIRONMENT === 'development') {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log('Something went wrong!');
+      return res
+        .status(500)
+        .json({ error: true, message: 'Error getting portfolio' });
+    }
+  }
+};
+
+//TODO
+const getUserPortfolio = async (req, res) => {};
+
+export default { createPortfolio, getPortfolios, getUserPortfolio };

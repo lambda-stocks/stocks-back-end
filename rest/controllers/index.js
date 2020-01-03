@@ -10,9 +10,21 @@ export const {
   passport,
   protectedRoute 
 } = authController;
-export const { createAStockOrder } = orderController;
-export const { createNotifications } = notificationsController;
-export const { createPortfolio } = portfolioController;
+export const { 
+  createAStockOrder, 
+  getOrders,
+  getUserOrders 
+} = orderController;
+export const { 
+  createNotifications, 
+  getNotifications, 
+  getUserNotification 
+} = notificationsController;
+export const { 
+  createPortfolio, 
+  getPortfolios,
+  getUserPortfolio 
+} = portfolioController;
 export const { 
   createStock, 
   deleteStock,
@@ -26,4 +38,8 @@ export const {
   login,
   register,
 } = userController;
-export const { watchAStock } = watchlistsController;
+export const { 
+  getUserWatchList,
+  getWatchlists, 
+  watchAStock 
+} = watchlistsController;
