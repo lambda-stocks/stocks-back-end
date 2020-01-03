@@ -1,5 +1,6 @@
 import userController from './controllers/userController';
 import watchlistsController from './controllers/watchlistController';
+import stockController from './controllers/stockController';
 
 export default app => {
   // public
@@ -12,6 +13,7 @@ export default app => {
 
   // protected routes
   //TODO need to protect
-  app.route('/api/auth/watchlist').post(watchlistsController.watchlists);
+  app.route('/api/auth/watchlists').post(watchlistsController.watchlists);
+  app.route('/api/auth/stocks').post(stockController.stocks);
   app.route('/api/auth/user/:id').get(userController.getUserById);
 };
