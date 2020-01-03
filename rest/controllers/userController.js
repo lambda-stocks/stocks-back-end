@@ -19,6 +19,26 @@ const  generateToken = user => {
   return jwt.sign(payload, process.env.SECRET, options);
 };
 
+const getUserById = async (req, res) => {
+  try{
+    const existingUser = await db('users').where({ id: req.params.id });
+    return res.status(200).json(existingUser[0]);
+  } catch(err){
+    if (ENVIRONMENT === 'development') {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log('Something went wrong!');
+      return res
+        .status(500)
+        .json({
+          error: true,
+          message: 'Error finding the user!',
+        });
+    }
+  }
+};
+
 const register = async (req, res) => {
   try{
     const { email, password, first_name, last_name } = req.body;
@@ -47,7 +67,17 @@ const register = async (req, res) => {
     const newUser = await db('users').insert(validatedEntries);
 
     if(newUser.length > 0){
-      return res.status(201).json({id: newUser[0]});
+      const id = newUser[0];
+      const newlyCreatedUser = await db('users').where({ id });
+      const userDetails = newlyCreatedUser[0];
+      const token = await generateToken(userDetails);
+      return res.status(201).json({
+        id: userDetails.id,
+        email: userDetails.email,
+        first_name: userDetails.first_name,
+        last_name: userDetails.last_name,
+        token,
+      });
     } else{
       return res
         .status(400)
@@ -112,6 +142,7 @@ const login = async (req, res) => {
 
 export default {
   generateToken, 
+  getUserById,
   login,
   register,
 };
