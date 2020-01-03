@@ -3,6 +3,26 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
+//TODO
+const getUserWatchList = async (req, res) => {};
+
+const getWatchlists = async (req, res) => {
+  try {
+    const orders = await db('watchlists');
+    return res.status(200).json(orders);
+  } catch (err) {
+    if (ENVIRONMENT === 'development') {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log('Something went wrong!');
+      return res
+        .status(500)
+        .json({ error: true, message: 'Error getting orders' });
+    }
+  }
+};
+
 const watchAStock = async (req, res) => {
   try {
     const { user_id, stock_id } = req.body;
@@ -32,4 +52,4 @@ const watchAStock = async (req, res) => {
   }
 };
 
-export default { watchAStock };
+export default { getUserWatchList, getWatchlists, watchAStock };

@@ -48,4 +48,24 @@ const createAStockOrder = async (req, res) => {
   }
 };
 
-export default { createAStockOrder };
+const getOrders = async (req, res) => {
+  try {
+    const orders = await db('orders');
+    return res.status(200).json(orders);
+  } catch (err) {
+    if (ENVIRONMENT === 'development') {
+      console.log(err);
+      return res.json(err);
+    } else {
+      console.log('Something went wrong!');
+      return res
+        .status(500)
+        .json({ error: true, message: 'Error getting orders' });
+    }
+  }
+};
+
+// TODO
+const getUserOrders = async (req, res) => {};
+
+export default { createAStockOrder, getOrders, getUserOrders };
