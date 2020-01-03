@@ -9,4 +9,14 @@ module.exports = {
     },
     useNullAsDefault: true
   },
+  production: {
+    client: 'sqlite3',
+    connection: {
+      filename: './database/users.sqlite3'
+    },
+    migrations: {
+      tableName: 'knex_migrations'
+    },
+    useNullAsDefault: true
+  }
 };
