@@ -1,5 +1,3 @@
-import jwt from 'jsonwebtoken';
-
 export const generateToken = user => {
   const payload = {
     subject: user.id,
@@ -13,4 +11,8 @@ export const generateToken = user => {
   return jwt.sign(payload, process.env.SECRET, options);
 };
 
-export default {};
+export const makeCondition = value => {
+  return Number.isNaN(Number(value))
+    ? { name: value.toUpperCase() }
+    : { id: value };
+};

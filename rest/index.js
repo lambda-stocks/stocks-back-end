@@ -1,5 +1,18 @@
-import { getUserById, login, register } from './controllers';
-import watchlistsController from './controllers/watchlistController';
+import {
+  createAStockOrder,
+  createNotifications,
+  createPortfolio,
+  createStock,
+  deleteStock,
+  getStockByAttribute,
+  getStocks,
+  getUserById,
+  login,
+  protectedRoute,
+  register,
+  updateStock,
+  watchAStock,
+} from './controllers';
 
 export default app => {
   // public
@@ -12,6 +25,11 @@ export default app => {
 
   // protected routes
   //TODO need to protect
-  app.route('/api/auth/watchlist').post(watchlistsController.watchlists);
-  app.route('/api/auth/user/:id').get(getUserById);
+  app.route('/api/auth/notifications').post(createNotifications);
+  app.route('/api/auth/portfolios').post(createPortfolio);
+  app.route('/api/auth/stocks').get(getStocks).post(createStock).delete(deleteStock).put(updateStock);
+  app.route('/api/auth/stocks/:attr').get(getStockByAttribute);
+  app.route('/api/auth/stocks/orders').post(createAStockOrder);
+  app.route('/api/auth/users/:id').get(protectedRoute, getUserById);
+  app.route('/api/auth/watchlists').post(watchAStock);
 };

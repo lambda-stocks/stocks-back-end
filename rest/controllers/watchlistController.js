@@ -3,10 +3,9 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const watchlists = async (req, res) => {
+const watchAStock = async (req, res) => {
   try {
     const { user_id, stock_id } = req.body;
-    console.log(req.body)
     if (!user_id || !stock_id) {
       return res.status(400).json({ error: true, message: 'user_id, and stock_id is required!' });
     }
@@ -33,4 +32,4 @@ const watchlists = async (req, res) => {
   }
 };
 
-export default { watchlists };
+export default { watchAStock };

@@ -9,7 +9,13 @@ const ENVIRONMENT = process.env.ENVIRONMENT;
 const getUserById = async (req, res) => {
   try{
     const existingUser = await db('users').where({ id: req.params.id });
-    return res.status(200).json(existingUser[0]);
+    const userDetails = existingUser.length > 0 ? {
+      id: existingUser[0].id,
+      email: existingUser[0].email, 
+      first_name: existingUser[0].first_name, 
+      last_name: existingUser[0].last_name
+    }: null;
+    return res.status(200).json(userDetails);
   } catch(err){
     if (ENVIRONMENT === 'development') {
       console.log(err);
