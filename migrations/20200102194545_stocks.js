@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('stocks', tbl => {
     tbl.increments('id').primary();
-    tbl.string('name', 128).notNullable();
+    tbl.string('name', 128).unique().notNullable();
     tbl.float('open').notNullable();
     tbl.float('high').notNullable();
     tbl.float('low').notNullable();

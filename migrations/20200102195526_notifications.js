@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('notifications', tbl => {
     tbl.increments('id').primary();
     tbl.integer("user_id").unsigned();
-    tbl.varchar('message');
+    tbl.varchar('message').notNullable();
     tbl.int('seen').defaultTo(0);
     tbl.timestamp('created_at').defaultTo(knex.fn.now());
     tbl.timestamp('updated_at').defaultTo(knex.fn.now());

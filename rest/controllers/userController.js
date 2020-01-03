@@ -1,28 +1,21 @@
 import db from '../../database/dbConfig';
 import bcjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import emailValidator from 'email-validator';
+import { generateToken } from '../../utils';
 require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT; 
 
-const  generateToken = user => {
-  const payload = {
-    subject: user.id,
-    username: user.username,
-  };
-
-  const options = {
-    expiresIn: '1hr',
-  };
-
-  return jwt.sign(payload, process.env.SECRET, options);
-};
-
 const getUserById = async (req, res) => {
   try{
     const existingUser = await db('users').where({ id: req.params.id });
-    return res.status(200).json(existingUser[0]);
+    const userDetails = existingUser.length > 0 ? {
+      id: existingUser[0].id,
+      email: existingUser[0].email, 
+      first_name: existingUser[0].first_name, 
+      last_name: existingUser[0].last_name
+    }: null;
+    return res.status(200).json(userDetails);
   } catch(err){
     if (ENVIRONMENT === 'development') {
       console.log(err);
