@@ -27,9 +27,9 @@ export default app => {
   //TODO need to protect
   app.route('/api/auth/notifications').post(createNotifications);
   app.route('/api/auth/portfolios').post(createPortfolio);
-  app.route('/api/auth/stocks').get(getStocks).post(createStock).delete(deleteStock).put(updateStock);
+  app.route('/api/auth/stocks').get(protectedRoute, getStocks).post(createStock).delete(deleteStock).put(updateStock);
   app.route('/api/auth/stocks/:attr').get(getStockByAttribute);
   app.route('/api/auth/stocks/orders').post(createAStockOrder);
-  app.route('/api/auth/users/:id').get(protectedRoute, getUserById);
+  app.route('/api/auth/users/:id').get( getUserById);
   app.route('/api/auth/watchlists').post(watchAStock);
 };
