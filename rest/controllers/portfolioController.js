@@ -3,21 +3,21 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const watchlists = async (req, res) => {
+const portfolios = async (req, res) => {
   try {
-    const { user_id, stock_id } = req.body;
-    if (!user_id || !stock_id) {
-      return res.status(400).json({ error: true, message: 'user_id, and stock_id is required!' });
+    const { user_id } = req.body;
+    if (!user_id) {
+      return res.status(400).json({ error: true, message: 'user_id is required!' });
     }
 
-    const watchLists = await db('watchlists').insert(req.body);
+    const port = await db('portfolios').insert(req.body);
 
-    if (watchLists.length > 0) {
-      return res.status(201).json({ id: watchLists[0] });
+    if (port.length > 0) {
+      return res.status(201).json({ id: port[0] });
     } else {
       return res
         .status(400)
-        .json({ error: true, message: 'Unable to create a watchlist' });
+        .json({ error: true, message: 'Unable to create a portfolio' });
     }
   } catch (err) {
     if (ENVIRONMENT === 'development') {
@@ -32,4 +32,4 @@ const watchlists = async (req, res) => {
   }
 };
 
-export default { watchlists };
+export default { portfolios };

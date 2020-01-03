@@ -3,21 +3,21 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const watchlists = async (req, res) => {
+const notifications = async (req, res) => {
   try {
-    const { user_id, stock_id } = req.body;
-    if (!user_id || !stock_id) {
-      return res.status(400).json({ error: true, message: 'user_id, and stock_id is required!' });
+    const { user_id } = req.body;
+    if (!user_id) {
+      return res.status(400).json({ error: true, message: 'user_id is required!' });
     }
 
-    const watchLists = await db('watchlists').insert(req.body);
+    const notification = await db('notifications').insert(req.body);
 
-    if (watchLists.length > 0) {
-      return res.status(201).json({ id: watchLists[0] });
+    if (notification.length > 0) {
+      return res.status(201).json({ id: notification[0] });
     } else {
       return res
         .status(400)
-        .json({ error: true, message: 'Unable to create a watchlist' });
+        .json({ error: true, message: 'Unable to create a notifications' });
     }
   } catch (err) {
     if (ENVIRONMENT === 'development') {
@@ -32,4 +32,4 @@ const watchlists = async (req, res) => {
   }
 };
 
-export default { watchlists };
+export default { notifications };
