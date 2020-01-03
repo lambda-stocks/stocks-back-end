@@ -1,4 +1,4 @@
-import userController from './controllers/userController';
+import { getUserById, login, register } from './controllers';
 import watchlistsController from './controllers/watchlistController';
 
 export default app => {
@@ -7,11 +7,11 @@ export default app => {
     res.json({ message: "Server is up and running" });
   });
 
-  app.route('/api/login').post(userController.login);
-  app.route('/api/register').post(userController.register);
+  app.route('/api/login').post(login);
+  app.route('/api/register').post(register);
 
   // protected routes
   //TODO need to protect
   app.route('/api/auth/watchlist').post(watchlistsController.watchlists);
-  app.route('/api/auth/user/:id').get(userController.getUserById);
+  app.route('/api/auth/user/:id').get(getUserById);
 };

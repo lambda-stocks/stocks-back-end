@@ -1,23 +1,10 @@
 import db from '../../database/dbConfig';
 import bcjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import emailValidator from 'email-validator';
+import { generateToken } from '../../utils';
 require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT; 
-
-const  generateToken = user => {
-  const payload = {
-    subject: user.id,
-    username: user.username,
-  };
-
-  const options = {
-    expiresIn: '1hr',
-  };
-
-  return jwt.sign(payload, process.env.SECRET, options);
-};
 
 const getUserById = async (req, res) => {
   try{
