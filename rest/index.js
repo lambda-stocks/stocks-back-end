@@ -1,12 +1,12 @@
+import userController from './controllers/userController';
+import wishlistController from './controllers/wishlistController';
 
 export default app => {
-  const userRouter = require('./controllers/userRouter');
-  const watchlistRouter = require('./controllers/wishlistRouter');
+  app.route('/api').get((req, res) => {
+    res.json({ message: "Server is up and running" });
+  });
 
-  app.use('/api/auth', userRouter);
-  app.use('/api/auth', watchlistRouter);
-
-  app.get('/', (req, res) => {
-    res.json({ message: "Server is up and running" })
-  })
+  app.route('/api/login').post(userController.login);
+  app.route('/api/register').post(userController.register);
+  app.route('/api/auth').post(wishlistController.wishlist);
 };
