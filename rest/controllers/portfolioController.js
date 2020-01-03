@@ -3,11 +3,19 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const portfolios = async (req, res) => {
+const createPortfolio = async (req, res) => {
   try {
     const { user_id } = req.body;
     if (!user_id) {
       return res.status(400).json({ error: true, message: 'user_id is required!' });
+    }
+
+    const existingUser = await db('users').where({ id: user_id });
+
+    if (existingUser.length < 1) {
+      return res
+        .status(400)
+        .json({ error: true, message: 'The given user does not exist' });
     }
 
     const port = await db('portfolios').insert(req.body);
@@ -32,4 +40,4 @@ const portfolios = async (req, res) => {
   }
 };
 
-export default { portfolios };
+export default { createPortfolio };

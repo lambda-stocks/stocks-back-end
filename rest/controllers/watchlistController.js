@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const watchlists = async (req, res) => {
+const watchAStock = async (req, res) => {
   try {
     const { user_id, stock_id } = req.body;
     if (!user_id || !stock_id) {
@@ -32,4 +32,4 @@ const watchlists = async (req, res) => {
   }
 };
 
-export default { watchlists };
+export default { watchAStock };

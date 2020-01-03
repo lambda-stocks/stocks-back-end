@@ -3,11 +3,21 @@ require("dotenv").config();
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
-const notifications = async (req, res) => {
+const createNotifications = async (req, res) => {
   try {
-    const { user_id } = req.body;
-    if (!user_id) {
-      return res.status(400).json({ error: true, message: 'user_id is required!' });
+    const { user_id, message } = req.body;
+    if (!user_id || !message) {
+      return res
+        .status(400)
+        .json({ error: true, message: 'user_id and notification message is required!' });
+    }
+
+    const existingUser = await db('users').where({ id: user_id });
+
+    if (existingUser.length < 1) {
+      return res
+        .status(400)
+        .json({ error: true, message: 'The given user does not exist' });
     }
 
     const notification = await db('notifications').insert(req.body);
@@ -32,4 +42,4 @@ const notifications = async (req, res) => {
   }
 };
 
-export default { notifications };
+export default { createNotifications };
