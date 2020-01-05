@@ -4,15 +4,15 @@ import emailValidator from 'email-validator';
 import { generateToken } from '../../utils';
 require("dotenv").config();
 
-const ENVIRONMENT = process.env.ENVIRONMENT; 
+const ENVIRONMENT = process.env.ENVIRONMENT;
 
 const getUserById = async (req, res) => {
   try{
     const existingUser = await db('users').where({ id: req.params.id });
     const userDetails = existingUser.length > 0 ? {
       id: existingUser[0].id,
-      email: existingUser[0].email, 
-      first_name: existingUser[0].first_name, 
+      email: existingUser[0].email,
+      first_name: existingUser[0].first_name,
       last_name: existingUser[0].last_name
     }: null;
     return res.status(200).json(userDetails);
@@ -88,7 +88,7 @@ const register = async (req, res) => {
     }
   }
 };
-  
+
 const login = async (req, res) => {
   try{
     const { email, password } = req.body;
@@ -111,6 +111,8 @@ const login = async (req, res) => {
       return res
         .status(200)
         .json({
+          first_name: user[0].first_name,
+          last_name: user[0].last_name,
           message: `Welcome ${user[0].first_name}! Here's a token: `,
           token: token,
         });
@@ -134,7 +136,7 @@ const login = async (req, res) => {
 };
 
 export default {
-  generateToken, 
+  generateToken,
   getUserById,
   login,
   register,
